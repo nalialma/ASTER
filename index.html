@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agencia de Creación de Contenido</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/473381863_122124644276587780_4958114317740459290_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeE-PpFdfU1xm65h-OL_lvU6h4x3NlmfJZSHjHc2WZ8llJ7szi1VcIL-ax51eisOVS8&_nc_ohc=ifCMI-BsGKMQ7kNvwHi5QWL&_nc_oc=AdkbAq8U-s3H0evhuSzR1BU686XsKcBcoDb8uFWydDxRej8gTr7YsIMOxrcfo_TLlQU&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=O0rwpODiflAacqrChX3AdQ&oh=00_AfQU1Eii4KeA3xMc9l-gNY_cbngDWmzCca2TFSLafeLTgQ&oe=688B8B2D" alt="Logo de la Agencia">
+                <h1>Creadores de Contenido</h1>
+            </div>
+            
+            <button class="language-toggle" id="languageToggle">English</button>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="#home" data-es="Inicio" data-en="Home">Inicio</a>
+                <div class="dropdown" id="servicesDropdown">
+                    <a href="#services" data-es="Servicios" data-en="Services">Servicios</a>
+                    <div class="dropdown-content">
+                        <a href="#packs" data-es="Packs" data-en="Packs">Packs</a>
+                    </div>
+                </div>
+                <a href="#clients" data-es="Clientes" data-en="Clients">Clientes</a>
+                <a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+ <section id="home" class="hero">
+    <div class="hero-content">
+        <h2 data-es="Creamos contenido convincente" data-en="We create compelling content">Creamos contenido convincente</h2>
+        <p class="rotating-text" id="rotatingText">Cautivamos a tu audiencia y generamos resultados</p>
+        <a href="#contact" class="cta-button" data-es="Comienza Tu Viaje" data-en="Start Your Journey">Comienza Tu Viaje</a>
+    </div>
+</section>
+
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-content">
+                <h2 class="section-title" data-es="Nuestros Servicios" data-en="Our Services">Nuestros Servicios</h2>
+                <p class="section-text" data-es="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." data-en="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p class="section-text" data-es="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." data-en="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3 data-es="Producción de Video" data-en="Video Production">Producción de Video</h3>
+                        <p data-es="Contenido de video profesional para redes sociales, comerciales y narración de marca que involucra a tu audiencia." data-en="Professional video content creation for social media, commercials, and brand storytelling that engages your audience.">Contenido de video profesional para redes sociales, comerciales y narración de marca que involucra a tu audiencia.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3 data-es="Fotografía" data-en="Photography">Fotografía</h3>
+                        <p data-es="Contenido visual impactante que captura la esencia de tu marca y cuenta tu historia a través de imágenes convincentes." data-en="Stunning visual content that captures your brand's essence and tells your story through compelling imagery.">Contenido visual impactante que captura la esencia de tu marca y cuenta tu historia a través de imágenes convincentes.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <h3 data-es="Redacción de Contenido" data-en="Content Writing">Redacción de Contenido</h3>
+                        <p data-es="Redacción publicitaria y creación de contenido que resuena con tu audiencia y impulsa el compromiso." data-en="Captivating copywriting and content creation that resonates with your audience and drives engagement.">Redacción publicitaria y creación de contenido que resuena con tu audiencia y impulsa el compromiso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packs Section -->
+    <section id="packs">
+        <div class="container">
+            <div class="section-content">
+                <h2 class="section-title" data-es="Paquetes de Contenido" data-en="Content Packs">Paquetes de Contenido</h2>
+                <p class="section-text" data-es="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." data-en="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                
+                <div class="packs-grid">
+                    <div class="pack-card">
+                        <h3 data-es="Paquete Inicial" data-en="Starter Pack">Paquete Inicial</h3>
+                        <p data-es="Perfecto para negocios nuevos" data-en="Perfect for new businesses">Perfecto para negocios nuevos</p>
+                        <div class="pack-price">$299</div>
+                        <p data-es="5 Publicaciones en Redes Sociales" data-en="5 Social Media Posts">5 Publicaciones en Redes Sociales</p>
+                        <p data-es="2 Videos Cortos" data-en="2 Short Videos">2 Videos Cortos</p>
+                        <p data-es="Branding Básico" data-en="Basic Branding">Branding Básico</p>
+                    </div>
+                    
+                    <div class="pack-card">
+                        <h3 data-es="Paquete de Crecimiento" data-en="Growth Pack">Paquete de Crecimiento</h3>
+                        <p data-es="Ideal para marcas en crecimiento" data-en="Ideal for growing brands">Ideal para marcas en crecimiento</p>
+                        <div class="pack-price">$599</div>
+                        <p data-es="15 Publicaciones en Redes Sociales" data-en="15 Social Media Posts">15 Publicaciones en Redes Sociales</p>
+                        <p data-es="5 Videos Cortos" data-en="5 Short Videos">5 Videos Cortos</p>
+                        <p data-es="Branding Avanzado" data-en="Advanced Branding">Branding Avanzado</p>
+                        <p data-es="Estrategia Mensual" data-en="Monthly Strategy">Estrategia Mensual</p>
+                    </div>
+                    
+                    <div class="pack-card">
+                        <h3 data-es="Paquete Empresarial" data-en="Enterprise Pack">Paquete Empresarial</h3>
+                        <p data-es="Para negocios establecidos" data-en="For established businesses">Para negocios establecidos</p>
+                        <div class="pack-price">$999</div>
+                        <p data-es="Contenido Ilimitado" data-en="Unlimited Content">Contenido Ilimitado</p>
+                        <p data-es="Videos Premium" data-en="Premium Videos">Videos Premium</p>
+                        <p data-es="Gestión Completa de Marca" data-en="Full Brand Management">Gestión Completa de Marca</p>
+                        <p data-es="Soporte Dedicado" data-en="Dedicated Support">Soporte Dedicado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients">
+        <div class="container">
+            <div class="section-content">
+                <h2 class="section-title" data-es="Nuestros Clientes" data-en="Our Clients">Nuestros Clientes</h2>
+                <p class="section-text" data-es="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." data-en="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                
+                <div class="clients-grid">
+                    <div class="client-card">
+                        <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/431866510_958189016310593_3824456201579447925_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeG4tkZ8iMx-mfkFh-QYujVIEnJMSpfjR1oSckxKl-NHWjspx_oNb11P48sBTczOZJs&_nc_ohc=UkoWWJ7uhEkQ7kNvwFPe8b0&_nc_oc=Adls1ot0oUHa1o8wivCSHna7TTdladSl5kS_TT4z7OVOOwWsY8C5x7toIUuMl7WXUQM&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=AXQQnq8J7hlAA4UIY-qOqQ&oh=00_AfQPa7zPdAybl5-MeGBqJsvtU2eYjTMaG1QNSpa1npf1dg&oe=688B9AE1" alt="Cliente 1" class="client-logo">
+                        <h3>Hotel Casa Blanca</h3>
+                        <a href="https://www.instagram.com/hotelcasablancasalta/" class="contact-link" data-es="Ver Portafolio" data-en="View Portfolio">Visitar</a>
+                    </div>
+                    
+                    <div class="client-card">
+                        <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/474586359_10231938963890544_3877973136841341022_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHg9nf9lrJh3abKW03RXjXYU2nudMD6z8tTae50wPrPyxnI3Mw-BLLMJJLGLs5GpMk&_nc_ohc=UHp7l-YC-r0Q7kNvwGlxJQA&_nc_oc=Adn-1XnU-Zn62kxzmFVGvQiBmzBUkYqkyuEuiBDh6nM26xWdcTCco9AhFukxp76y4d4&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=l1sRwD-pLvLuhw8ok0Qd1A&oh=00_AfTep0cxAqrOrhL4HmpzcHD_a53S6-vIs2pSPpfy9s5KCg&oe=688B7CC3" alt="Cliente 2" class="client-logo">
+                        <h3>El Moro Carnes</h3>
+                        <a href="https://www.instagram.com/elmorocarnes/" class="contact-link" data-es="Ver Portafolio" data-en="View Portfolio">Visitar</a>
+                    </div>
+                    
+                    <div class="client-card">
+                        <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/386348002_122103090014067098_879092504150092001_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFffSbvixshHTRwGPcj0Tm5ipy977vlT5WKnL3vu-VPlW-Qe9Rqdi9_JCdYzSLVSMA&_nc_ohc=YUH6r79ApgoQ7kNvwFmF6fE&_nc_oc=AdnvoNdsaNwQbErOnOwokT90a5dGKxHLLhP_DrPKkYJFDwvTl0zdo8rBe81Cgz_FSg8&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=Iz9RI4dhok1HvNCLdgFVKg&oh=00_AfSbb04hrJAcYY2MdJa_S8pAi63k0E9hj2vo8HkHOuZCLg&oe=688B8CF1" alt="Cliente 3" class="client-logo">
+                        <h3>Killary Gimnasia Ritmica</h3>
+                        <a href="https://www.instagram.com/killary.gimnasiaritmica/" class="contact-link" data-es="Ver Portafolio" data-en="View Portfolio">Visitar</a>
+                    </div>
+                    
+                    <div class="client-card">
+                        <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/500766911_1208164367768401_3101416191870027747_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFQj8mH2tHeFmTSJvcA6H9WABQdnhl-59IAFB2eGX7n0sjR628VC5SnHm1ogFqFPOM&_nc_ohc=WYnQUp64cicQ7kNvwEsYWn2&_nc_oc=Adnik8dVPTV4uZKQFOAPpGfLSbfJHi1rY5VKzrByqW5tl1Jz_0pdDh9FTnDeK06YPmo&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=nBCUaQ6a8dz5ymIjQquqJw&oh=00_AfQX3RogoCD79OElDXwk1Dl0mZjUHeu3YE7X1Y-41aDWKQ&oe=688B7622" alt="Cliente 4" class="client-logo">
+                        <h3>Marca Cuatro</h3>
+                        <a href="https://www.instagram.com/steelosalta/" class="contact-link" data-es="Ver Portafolio" data-en="View Portfolio">Ver Portafolio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-content">
+                <h2 class="section-title" data-es="Contáctanos" data-en="Get In Touch">Contáctanos</h2>
+                <p class="section-text" data-es="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." data-en="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3>WhatsApp</h3>
+                        <a href="https://wa.me/1234567890" class="contact-link">+1 234 567 890</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 data-es="Correo Electrónico" data-en="Email">Correo Electrónico</h3>
+                        <a href="mailto:info@creadoresdecontenido.com" class="contact-link">info@creadoresdecontenido.com</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <h3>Instagram</h3>
+                        <a href="https://www.instagram.com/agenciaaster.salta/" class="contact-link">Agencia Aster</a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-facebook"></i>
+                        </div>
+                        <h3>Facebook</h3>
+                        <a href="https://www.facebook.com/profile.php?id=61567633411299s" class="contact-link">Agencia Aster</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>
