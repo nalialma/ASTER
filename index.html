@@ -6,6 +6,8 @@
     <title>Agencia de Creación de Contenido - Aster</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -13,27 +15,29 @@
         }
 
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
+            --primary-gradient: linear-gradient(135deg, #a735ff 0%, #a214df 100%);
+            --secondary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --accent-gradient: linear-gradient(135deg, #35f2ff 0%, #1ea0f7 100%);
+            --dark-gradient: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            --glass-bg: rgba(31, 63, 114, 0.1);
+            --glass-border: rgba(171, 30, 247, 0.2);
             --text-primary: #ffffff;
             --text-secondary: #e0e6ed;
-            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
-            --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.3);
+            --shadow-light: 0 8px 32px rgba(182, 16, 243, 0.37);
+            --shadow-heavy: 0 15px 35px rgba(14, 233, 225, 0.5);
+            --hexagon-color: #00aeff26;
+            --hexagon-stroke: rgba(103, 11, 241, 0.3);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            font-family: 'Exo 2', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #72eaff;
             color: var(--text-primary);
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Animated Background Particles */
+        /* Hexagonal Background Pattern */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -42,20 +46,103 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #247c91 0%, #553aa8 100%);
+        }
+
+        .hexagon-pattern {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, var(--hexagon-color) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, var(--hexagon-color) 1px, transparent 1px);
+            background-size: 100px 86px;
+            background-position: 0 0, 50px 43px;
+            animation: hexagonFloat 20s linear infinite;
+        }
+
+        .hexagon {
+            position: absolute;
+            width: 60px;
+            height: 34.64px;
+            background: var(--hexagon-color);
+            margin: 17.32px 0;
+            border: 1px solid var(--hexagon-stroke);
+            animation: hexagonPulse 4s ease-in-out infinite;
+        }
+
+        .hexagon:before,
+        .hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+        }
+
+        .hexagon:before {
+            bottom: 100%;
+            border-bottom: 17.32px solid var(--hexagon-color);
+            border-bottom-color: inherit;
+        }
+
+        .hexagon:after {
+            top: 100%;
+            border-top: 17.32px solid var(--hexagon-color);
+            border-top-color: inherit;
+        }
+
+        @keyframes hexagonFloat {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            33% { transform: translateX(-50px) translateY(-50px) rotate(120deg); }
+            66% { transform: translateX(50px) translateY(-25px) rotate(240deg); }
+            100% { transform: translateX(0) translateY(0) rotate(360deg); }
+        }
+
+        @keyframes hexagonPulse {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1);
+                background: var(--hexagon-color);
+                border-color: var(--hexagon-stroke);
+            }
+            50% { 
+                opacity: 0.8; 
+                transform: scale(1.1);
+                background: rgba(70, 210, 245, 0.25);
+                border-color:  rgba(70, 210, 245, 0.25);
+            }
         }
 
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.5);
+            width: 3px;
+            height: 3px;
+            background: var(--hexagon-stroke);
             border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+            animation: particleFloat 8s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(30, 164, 247, 0.8);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+        @keyframes particleFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.4;
+            }
+            25% { 
+                transform: translateY(-30px) rotate(90deg); 
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-15px) rotate(180deg); 
+                opacity: 1;
+            }
+            75% { 
+                transform: translateY(-25px) rotate(270deg); 
+                opacity: 0.6;
+            }
         }
 
         /* Loading Screen with Animated Logo */
@@ -65,7 +152,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: radial-gradient(circle at 50% 50%, #022d39 0%, #0a0a0a 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -84,9 +171,10 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            border: 4px solid rgba(30, 200, 247, 0.8);
             animation: logoSpin 3s ease-in-out;
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 50px rgba(0, 30, 255, 0.6);
+            filter: drop-shadow(0 0 20px rgba(247, 30, 215, 0.8));
         }
 
         .logo-ring {
@@ -96,10 +184,11 @@
             width: 190px;
             height: 190px;
             border: 2px solid transparent;
-            border-top: 2px solid #ffffff;
-            border-right: 2px solid #ffffff;
+            border-top: 2px solid #6835ff;
+            border-right: 2px solid #1ea0f7;
             border-radius: 50%;
             animation: ringRotate 2s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(171, 53, 255, 0.6));
         }
 
         @keyframes logoSpin {
@@ -195,8 +284,10 @@
         }
 
         .form-input:focus {
-            border-color: #4facfe;
-            box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+            border-color: #ff35c2;
+            box-shadow: 0 0 20px rgba(73, 53, 255, 0.3);
+            outline: 2px solid #35fcff;
+            outline-offset: 2px;
         }
 
         .form-input::placeholder {
@@ -219,7 +310,12 @@
 
         .auth-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .auth-button:focus {
+            outline: 2px solid #ffffff;
+            outline-offset: 2px;
         }
 
         .auth-button:disabled {
@@ -236,8 +332,8 @@
         .verification-code {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #4facfe;
-            background: rgba(79, 172, 254, 0.1);
+            color: #b318fc;
+            background: rgba(5, 181, 216, 0.1);
             padding: 10px;
             border-radius: 5px;
             margin: 10px 0;
@@ -300,11 +396,13 @@
         }
 
         .logo h1 {
+            font-family: 'Orbitron', monospace;
             font-size: 1.5rem;
             font-weight: 700;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
         }
 
         .nav-controls {
@@ -329,6 +427,10 @@
             background: var(--accent-gradient);
             transform: translateY(-2px);
             box-shadow: var(--shadow-light);
+        }
+
+        .admin-button.authenticated {
+            background: linear-gradient(135deg, #ed8efc, #af1ef7);
         }
 
         /* Navigation */
@@ -379,12 +481,15 @@
         }
 
         .hero h2 {
+            font-family: 'Orbitron', monospace;
             font-size: 4rem;
             margin-bottom: 30px;
             background: var(--secondary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: heroTitleSlide 1.5s ease-out;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .rotating-text {
@@ -422,7 +527,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(14, 8, 164, 0.2), transparent);
             transition: left 0.5s;
         }
 
@@ -432,7 +537,12 @@
 
         .cta-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(79, 172, 254, 0.4);
+            box-shadow: 0 15px 35px rgba(154, 53, 255, 0.4);
+        }
+
+        .cta-button:focus {
+            outline: 2px solid #ffffff;
+            outline-offset: 2px;
         }
 
         /* Sections with Glassmorphism */
@@ -466,11 +576,14 @@
 
         .section-title {
             text-align: center;
+            font-family: 'Orbitron', monospace;
             font-size: 3rem;
             margin-bottom: 40px;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .section-text {
@@ -499,6 +612,7 @@
             border: 1px solid var(--glass-border);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .service-card::before {
@@ -508,7 +622,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: conic-gradient(transparent, rgba(79, 172, 254, 0.1), transparent);
+            background: conic-gradient(transparent, rgba(72, 162, 237, 0.1), transparent);
             animation: rotate 4s linear infinite;
             z-index: -1;
         }
@@ -520,7 +634,12 @@
 
         .service-card:hover {
             transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(79, 172, 254, 0.3);
+            box-shadow: 0 25px 50px rgba(180, 14, 231, 0.3);
+        }
+
+        .service-card:hover h3 {
+            color: #27e2fb;
+            transition: color 0.3s ease;
         }
 
         .service-icon {
@@ -572,7 +691,7 @@
             font-size: 1.5rem;
             margin-bottom: 30px;
             text-align: center;
-            color: #4facfe;
+            color: #7835ff;
         }
 
         .admin-section {
@@ -599,6 +718,11 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
+        .admin-input:focus {
+            outline: 2px solid #35fffc;
+            outline-offset: 2px;
+        }
+
         .admin-save {
             width: 100%;
             padding: 12px;
@@ -613,7 +737,12 @@
 
         .admin-save:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+            box-shadow: 0 5px 15px rgba(8, 125, 234, 0.3);
+        }
+
+        .admin-save:focus {
+            outline: 2px solid #ffffff;
+            outline-offset: 2px;
         }
 
         .logout-button {
@@ -634,6 +763,11 @@
         .logout-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        .logout-button:focus {
+            outline: 2px solid #ffffff;
+            outline-offset: 2px;
         }
 
         /* Mobile Menu */
@@ -691,7 +825,7 @@
         }
 
         .mobile-menu a:hover {
-            background: rgba(79, 172, 254, 0.2);
+            background: rgba(255, 107, 53, 0.2);
         }
 
         /* Animations */
@@ -729,10 +863,17 @@
 
             .hero h2 {
                 font-size: 2.5rem;
+                line-height: 1.2;
+            }
+
+            .rotating-text {
+                font-size: 1.2rem;
+                padding: 0 20px;
             }
 
             .section-content {
-                padding: 40px 30px;
+                margin: 20px;
+                padding: 40px 25px;
             }
 
             .section-title {
@@ -741,7 +882,11 @@
 
             .services-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 25px;
+            }
+
+            .service-card {
+                padding: 30px 25px;
             }
 
             .admin-panel {
@@ -778,6 +923,15 @@
             .service-card {
                 padding: 30px 20px;
             }
+
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+
+            .auth-container {
+                margin: 20px;
+                padding: 30px 25px;
+            }
         }
 
         /* Error/Success Messages */
@@ -790,9 +944,9 @@
         }
 
         .message.error {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid rgba(231, 76, 60, 0.5);
-            color: #e74c3c;
+            background: rgba(60, 160, 231, 0.2);
+            border: 1px solid rgba(60, 143, 231, 0.5);
+            color: #eb0a7b;
         }
 
         .message.success {
@@ -812,21 +966,32 @@
         }
 
         @keyframes pulseEffect {
-            0% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(79, 172, 254, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(53, 151, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 53, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); }
+        }
+
+        /* Additional particle styles */
+        .particle:nth-child(odd) {
+            background: rgba(53, 235, 255, 0.6);
+        }
+        
+        .particle:nth-child(even) {
+            background: rgba(128, 30, 247, 0.6);
         }
     </style>
 </head>
 <body>
     <!-- Animated Background -->
-    <div class="bg-animation" id="bgAnimation"></div>
+    <div class="bg-animation" id="bgAnimation">
+        <div class="hexagon-pattern"></div>
+    </div>
 
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="logo-container">
             <div class="logo-ring"></div>
-            <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/542123632_122162293736587780_8560985821777942292_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeElY5NgB_Qh3EG0ksI2Uwu_WvdU3bD-EK1a91TdsP4QrQKwrC8YAGzY_Bq3JkV1r_k&_nc_ohc=G8YhKH0IUT8Q7kNvwHpY30m&_nc_oc=AdnL6iCyFaZG6NLY7teDxrent9PjiKq4FV8cLQA3nVkPhrOF-TQsDNufG_ISaaiC8SE&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=y0b9zpHrcSnYyynZhNiBQg&oh=00_AfbJBpIuZT1rV3DLPGcUNu381a0BEwqgEISxNpj_sxyYlw&oe=68C55523" alt="Logo Aster" class="animated-logo">
+            <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/542123632_122162293736587780_8560985821777942292_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeElY5NgB_Qh3EG0ksI2Uwu_WvdU3bD-EK1a91TdsP4QrQKwrC8YAGzY_Bq3JkV1r_k&_nc_ohc=G8YhKH0IUT8Q7kNvwHpY30m&_nc_oc=AdnL6iCyFaZG6NLY7teDxrent9PjiKq4FV8cLQA3nVkPhrOF-TQsDNufG_ISaaiC8SE&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=8zPZ6uhUsgVbhYWgTvkuuA&oh=00_AfZZ7_6Ue_Dh-qIS_vUkqME9aAVCX9zcojV9r1Qj0FYJ6Q&oe=68C63623" alt="Logo Aster" class="animated-logo">
             <div class="loading-text">Cargando...</div>
         </div>
     </div>
@@ -865,7 +1030,7 @@
         <header id="header">
             <div class="header-content">
                 <div class="logo">
-                    <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/542123632_122162293736587780_8560985821777942292_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeElY5NgB_Qh3EG0ksI2Uwu_WvdU3bD-EK1a91TdsP4QrQKwrC8YAGzY_Bq3JkV1r_k&_nc_ohc=G8YhKH0IUT8Q7kNvwHpY30m&_nc_oc=AdnL6iCyFaZG6NLY7teDxrent9PjiKq4FV8cLQA3nVkPhrOF-TQsDNufG_ISaaiC8SE&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=y0b9zpHrcSnYyynZhNiBQg&oh=00_AfbJBpIuZT1rV3DLPGcUNu381a0BEwqgEISxNpj_sxyYlw&oe=68C55523" alt="Logo Aster">
+                    <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/542123632_122162293736587780_8560985821777942292_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeElY5NgB_Qh3EG0ksI2Uwu_WvdU3bD-EK1a91TdsP4QrQKwrC8YAGzY_Bq3JkV1r_k&_nc_ohc=G8YhKH0IUT8Q7kNvwHpY30m&_nc_oc=AdnL6iCyFaZG6NLY7teDxrent9PjiKq4FV8cLQA3nVkPhrOF-TQsDNufG_ISaaiC8SE&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=8zPZ6uhUsgVbhYWgTvkuuA&oh=00_AfZZ7_6Ue_Dh-qIS_vUkqME9aAVCX9zcojV9r1Qj0FYJ6Q&oe=68C63623" alt="Logo Aster">
                     <h1 id="logoText">Creadores de Contenido</h1>
                 </div>
                 
@@ -983,36 +1148,36 @@
                         <div class="service-card">
                             <h3 data-es="Paquete Inicial" data-en="Starter Pack">Paquete Inicial</h3>
                             <p data-es="Perfecto para negocios nuevos" data-en="Perfect for new businesses">Perfecto para negocios nuevos</p>
-                            <div style="font-size: 2rem; font-weight: 700; margin: 20px 0; color: #4facfe;">$299</div>
+                            <div style="font-size: 2rem; font-weight: 700; margin: 20px 0; color: #ff359d;">$299</div>
                             <ul style="text-align: left; list-style: none; padding: 0;">
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="5 Publicaciones en Redes Sociales" data-en="5 Social Media Posts">5 Publicaciones en Redes Sociales</span></li>
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="2 Videos Cortos" data-en="2 Short Videos">2 Videos Cortos</span></li>
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Branding Básico" data-en="Basic Branding">Branding Básico</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="5 Publicaciones en Redes Sociales" data-en="5 Social Media Posts">5 Publicaciones en Redes Sociales</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="2 Videos Cortos" data-en="2 Short Videos">2 Videos Cortos</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="Branding Básico" data-en="Basic Branding">Branding Básico</span></li>
                             </ul>
                         </div>
                         
-                        <div class="service-card" style="border: 2px solid #4facfe; transform: scale(1.05);">
-                            <div style="background: #4facfe; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);">MÁS POPULAR</div>
+                        <div class="service-card" style="border: 2px solid #ff359d; transform: scale(1.05);">
+                            <div style="background: #ff359d; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);">MÁS POPULAR</div>
                             <h3 data-es="Paquete de Crecimiento" data-en="Growth Pack">Paquete de Crecimiento</h3>
                             <p data-es="Ideal para marcas en crecimiento" data-en="Ideal for growing brands">Ideal para marcas en crecimiento</p>
-                            <div style="font-size: 2rem; font-weight: 700; margin: 20px 0; color: #4facfe;">$599</div>
+                            <div style="font-size: 2rem; font-weight: 700; margin: 20px 0; color: #ff359d;">$599</div>
                             <ul style="text-align: left; list-style: none; padding: 0;">
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="15 Publicaciones en Redes Sociales" data-en="15 Social Media Posts">15 Publicaciones en Redes Sociales</span></li>
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="5 Videos Cortos" data-en="5 Short Videos">5 Videos Cortos</span></li>
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Branding Avanzado" data-en="Advanced Branding">Branding Avanzado</span></li>
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Estrategia Mensual" data-en="Monthly Strategy">Estrategia Mensual</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="15 Publicaciones en Redes Sociales" data-en="15 Social Media Posts">15 Publicaciones en Redes Sociales</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="5 Videos Cortos" data-en="5 Short Videos">5 Videos Cortos</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="Branding Avanzado" data-en="Advanced Branding">Branding Avanzado</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="Estrategia Mensual" data-en="Monthly Strategy">Estrategia Mensual</span></li>
                             </ul>
                         </div>
                         
                         <div class="service-card">
                             <h3 data-es="Paquete Empresarial" data-en="Enterprise Pack">Paquete Empresarial</h3>
                             <p data-es="Para negocios establecidos" data-en="For established businesses">Para negocios establecidos</p>
-                            <div style="font-size: 2rem; font-weight: 700; margin: 20px 0; color: #4facfe;">$999</div>
+                            <div style="font-size: 2rem; font-weight: 700; margin: 20px 0; color: #ff359d;">$999</div>
                             <ul style="text-align: left; list-style: none; padding: 0;">
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Contenido Ilimitado" data-en="Unlimited Content">Contenido Ilimitado</span></li>
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Videos Premium" data-en="Premium Videos">Videos Premium</span></li>
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Gestión Completa de Marca" data-en="Full Brand Management">Gestión Completa de Marca</span></li>
-                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Soporte Dedicado" data-en="Dedicated Support">Soporte Dedicado</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="Contenido Ilimitado" data-en="Unlimited Content">Contenido Ilimitado</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="Videos Premium" data-en="Premium Videos">Videos Premium</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="Gestión Completa de Marca" data-en="Full Brand Management">Gestión Completa de Marca</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #ff359d; margin-right: 10px;"></i><span data-es="Soporte Dedicado" data-en="Dedicated Support">Soporte Dedicado</span></li>
                             </ul>
                         </div>
                     </div>
@@ -1140,17 +1305,31 @@
             startMessageRotation();
         });
 
-        // Create animated background particles
+        // Create animated background particles and hexagons
         function createBackgroundParticles() {
             const bgAnimation = document.getElementById('bgAnimation');
-            for (let i = 0; i < 50; i++) {
+            
+            // Create floating particles
+            for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
                 bgAnimation.appendChild(particle);
+            }
+
+            // Create hexagon elements
+            for (let i = 0; i < 15; i++) {
+                const hexagon = document.createElement('div');
+                hexagon.classList.add('hexagon');
+                hexagon.style.left = Math.random() * 100 + '%';
+                hexagon.style.top = Math.random() * 100 + '%';
+                hexagon.style.animationDelay = Math.random() * 4 + 's';
+                hexagon.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                hexagon.style.opacity = Math.random() * 0.5 + 0.2;
+                bgAnimation.appendChild(hexagon);
             }
         }
 
@@ -1355,6 +1534,7 @@
         function toggleAdminPanel() {
             const adminPanel = document.getElementById('adminPanel');
             adminPanel.classList.toggle('active');
+            updateAdminButtonAppearance();
             
             if (adminPanel.classList.contains('active')) {
                 loadCurrentContent();
@@ -1446,7 +1626,7 @@
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: ${type === 'success' ? '#2ecc71' : '#e74c3c'};
+                background: ${type === 'success' ? '#ff6b35' : '#e74c3c'};
                 color: white;
                 padding: 15px 20px;
                 border-radius: 5px;
@@ -1470,8 +1650,20 @@
         function logout() {
             isAuthenticated = false;
             document.getElementById('adminPanel').classList.remove('active');
-            document.getElementById('adminButton').textContent = 'Admin';
+            updateAdminButtonAppearance();
             showAdminMessage('success', 'Sesión cerrada');
+        }
+
+        // Update admin button appearance when authenticated
+        function updateAdminButtonAppearance() {
+            const adminButton = document.getElementById('adminButton');
+            if (isAuthenticated) {
+                adminButton.classList.add('authenticated');
+                adminButton.textContent = 'Panel';
+            } else {
+                adminButton.classList.remove('authenticated');
+                adminButton.textContent = 'Admin';
+            }
         }
 
         // Add keyboard support for forms
@@ -1487,178 +1679,6 @@
             }
         });
 
-        // Add additional CSS animations
-        const additionalStyles = document.createElement('style');
-        additionalStyles.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes slideOutRight {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-            
-            /* Additional hover effects */
-            .service-card {
-                cursor: pointer;
-            }
-            
-            .service-card:hover h3 {
-                color: #4facfe;
-                transition: color 0.3s ease;
-            }
-            
-            .cta-button {
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .admin-button.authenticated {
-                background: linear-gradient(135deg, #2ecc71, #27ae60);
-            }
-            
-            /* Loading screen improvements */
-            .loading-screen {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            }
-            
-            .loading-screen::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.1) 100%);
-            }
-            
-            /* Improve mobile responsiveness */
-            @media (max-width: 768px) {
-                .hero h2 {
-                    font-size: 2.5rem;
-                    line-height: 1.2;
-                }
-                
-                .rotating-text {
-                    font-size: 1.2rem;
-                    padding: 0 20px;
-                }
-                
-                .section-content {
-                    margin: 20px;
-                    padding: 40px 25px;
-                }
-                
-                .services-grid {
-                    grid-template-columns: 1fr;
-                    gap: 25px;
-                }
-                
-                .service-card {
-                    padding: 30px 25px;
-                }
-            }
-            
-            @media (max-width: 480px) {
-                .hero h2 {
-                    font-size: 2rem;
-                }
-                
-                .section-title {
-                    font-size: 1.8rem;
-                }
-                
-                .logo h1 {
-                    font-size: 1.2rem;
-                }
-                
-                .auth-container {
-                    margin: 20px;
-                    padding: 30px 25px;
-                }
-            }
-            
-            /* Accessibility improvements */
-            .form-input:focus,
-            .admin-input:focus {
-                outline: 2px solid #4facfe;
-                outline-offset: 2px;
-            }
-            
-            .auth-button:focus,
-            .admin-save:focus,
-            .logout-button:focus,
-            .cta-button:focus {
-                outline: 2px solid #ffffff;
-                outline-offset: 2px;
-            }
-            
-            /* Improve loading animation */
-            .animated-logo {
-                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
-            }
-            
-            .logo-ring {
-                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
-            }
-            
-            /* Enhanced particle animation */
-            .particle {
-                box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-            }
-            
-            .particle:nth-child(odd) {
-                background: rgba(79, 172, 254, 0.6);
-            }
-            
-            .particle:nth-child(even) {
-                background: rgba(240, 147, 251, 0.6);
-            }
-        `;
-        document.head.appendChild(additionalStyles);
-
-        // Update admin button appearance when authenticated
-        function updateAdminButtonAppearance() {
-            const adminButton = document.getElementById('adminButton');
-            if (isAuthenticated) {
-                adminButton.classList.add('authenticated');
-                adminButton.textContent = 'Panel';
-            } else {
-                adminButton.classList.remove('authenticated');
-                adminButton.textContent = 'Admin';
-            }
-        }
-
-        // Enhance the authentication flow
-        const originalToggleAdminPanel = toggleAdminPanel;
-        toggleAdminPanel = function() {
-            originalToggleAdminPanel();
-            updateAdminButtonAppearance();
-        };
-
-        const originalLogout = logout;
-        logout = function() {
-            originalLogout();
-            updateAdminButtonAppearance();
-        };
-
-        // Initialize admin button appearance
-        updateAdminButtonAppearance();
-        
         // Add pulse effect to CTA button
         setInterval(() => {
             const ctaButton = document.getElementById('ctaButton');
@@ -1670,8 +1690,12 @@
             }
         }, 8000);
 
-        console.log('🚀 Agencia Aster - Sitio web cargado exitosamente!');
-        console.log('🎨 Interfaz artística e interactiva activada');
+        // Initialize admin button appearance
+        updateAdminButtonAppearance();
+
+        console.log('🚀 Agencia Aster - Sitio web cargado exitosamente con diseño hexagonal!');
+        console.log('🎨 Interfaz futurista con patrones hexagonales activada');
+        console.log('🟠 Esquema de colores naranja y azul implementado');
         console.log('🔐 Sistema de autenticación: Usuario "ASTER", Contraseña "agencia100"');
     </script>
 </body>
