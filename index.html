@@ -3,210 +3,1676 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agencia de Creación de Contenido</title>
-    <link rel="stylesheet" href="styles.css">
-    
+    <title>Agencia de Creación de Contenido - Aster</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #e0e6ed;
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Loading Screen with Animated Logo */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+
+        .logo-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+
+        .animated-logo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            animation: logoSpin 3s ease-in-out;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-ring {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 190px;
+            height: 190px;
+            border: 2px solid transparent;
+            border-top: 2px solid #ffffff;
+            border-right: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: ringRotate 2s linear infinite;
+        }
+
+        @keyframes logoSpin {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 1; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        @keyframes ringRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            font-weight: 300;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Authentication Modal */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .auth-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .auth-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: var(--shadow-heavy);
+            transform: translateY(50px);
+            transition: transform 0.3s ease;
+        }
+
+        .auth-modal.active .auth-container {
+            transform: translateY(0);
+        }
+
+        .auth-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .auth-button {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-gradient);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .auth-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .two-factor-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .verification-code {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4facfe;
+            background: rgba(79, 172, 254, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        /* Main Content */
+        .main-content {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .main-content.active {
+            opacity: 1;
+        }
+
+        /* Header with Glassmorphism */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .language-toggle, .admin-button {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .language-toggle:hover, .admin-button:hover {
+            background: var(--accent-gradient);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::before {
+            width: 100%;
+        }
+
+        /* Hero Section with Interactive Elements */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: heroTitleSlide 1.5s ease-out;
+        }
+
+        .rotating-text {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: var(--text-secondary);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.5s both;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(79, 172, 254, 0.4);
+        }
+
+        /* Sections with Glassmorphism */
+        section {
+            padding: 120px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .section-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease;
+        }
+
+        .section-content:hover {
+            transform: translateY(-10px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* Enhanced Service Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(79, 172, 254, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(79, 172, 254, 0.3);
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            top: 100px;
+            right: -400px;
+            width: 350px;
+            height: calc(100vh - 120px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px 0 0 20px;
+            transition: right 0.4s ease;
+            z-index: 999;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .admin-panel.active {
+            right: 0;
+        }
+
+        .admin-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #4facfe;
+        }
+
+        .admin-section {
+            margin-bottom: 30px;
+        }
+
+        .admin-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .admin-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .admin-save {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-gradient);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .admin-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .logout-button {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            padding: 12px;
+            background: var(--secondary-gradient);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            height: 100vh;
+            width: 280px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding-top: 100px;
+            transition: right 0.3s ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(79, 172, 254, 0.2);
+        }
+
+        /* Animations */
+        @keyframes heroTitleSlide {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .section-content {
+                padding: 40px 30px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .admin-panel {
+                width: 100%;
+                right: -100%;
+                border-radius: 0;
+            }
+
+            .header-content {
+                flex-wrap: wrap;
+            }
+
+            .nav-controls {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .section-content {
+                padding: 30px 20px;
+            }
+
+            .service-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Error/Success Messages */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.error {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.5);
+            color: #e74c3c;
+        }
+
+        .message.success {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid rgba(46, 204, 113, 0.5);
+            color: #2ecc71;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Pulse effect for interactive elements */
+        .pulse {
+            animation: pulseEffect 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseEffect {
+            0% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(79, 172, 254, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0); }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/542123632_122162293736587780_8560985821777942292_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeElY5NgB_Qh3EG0ksI2Uwu_WvdU3bD-EK1a91TdsP4QrQKwrC8YAGzY_Bq3JkV1r_k&_nc_ohc=G8YhKH0IUT8Q7kNvwHpY30m&_nc_oc=AdnL6iCyFaZG6NLY7teDxrent9PjiKq4FV8cLQA3nVkPhrOF-TQsDNufG_ISaaiC8SE&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=y0b9zpHrcSnYyynZhNiBQg&oh=00_AfbJBpIuZT1rV3DLPGcUNu381a0BEwqgEISxNpj_sxyYlw&oe=68C55523" alt="Logo de la Agencia">
-                <h1>Creadores de Contenido</h1>
-            </div>
-            
-            <button class="language-toggle" id="languageToggle">English</button>
-            
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            
-            <nav class="nav-menu" id="navMenu">
-                <a href="#home" data-es="Inicio" data-en="Home">Inicio</a>
-                <div class="dropdown" id="servicesDropdown">
-                    <a href="#services" data-es="Servicios" data-en="Services">Servicios</a>
-                    <div class="dropdown-content">
-                        <a href="#packs" data-es="Packs" data-en="Packs">Packs</a>
-                    </div>
-                </div>
-                <a href="#clients" data-es="Clientes" data-en="Clients">Clientes</a>
-                <a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a>
-            </nav>
-        </div>
-    </header>
+    <!-- Animated Background -->
+    <div class="bg-animation" id="bgAnimation"></div>
 
-    <!-- Hero Section -->
- <section id="home" class="hero">
-    <div class="hero-content">
-        <h2 data-es="Creamos contenido convincente" data-en="We create compelling content">Creamos contenido convincente</h2>
-        <p class="rotating-text" id="rotatingText">Cautivamos a tu audiencia y generamos resultados</p>
-        <a href="#contact" class="cta-button" data-es="Comienza Tu Viaje" data-en="Start Your Journey">Comienza Tu Viaje</a>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="logo-container">
+            <div class="logo-ring"></div>
+            <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/542123632_122162293736587780_8560985821777942292_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeElY5NgB_Qh3EG0ksI2Uwu_WvdU3bD-EK1a91TdsP4QrQKwrC8YAGzY_Bq3JkV1r_k&_nc_ohc=G8YhKH0IUT8Q7kNvwHpY30m&_nc_oc=AdnL6iCyFaZG6NLY7teDxrent9PjiKq4FV8cLQA3nVkPhrOF-TQsDNufG_ISaaiC8SE&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=y0b9zpHrcSnYyynZhNiBQg&oh=00_AfbJBpIuZT1rV3DLPGcUNu381a0BEwqgEISxNpj_sxyYlw&oe=68C55523" alt="Logo Aster" class="animated-logo">
+            <div class="loading-text">Cargando...</div>
+        </div>
     </div>
-</section>
 
+    <!-- Authentication Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <h2 class="auth-title">Acceso Administrador</h2>
+            <div id="loginForm">
+                <div class="form-group">
+                    <input type="text" class="form-input" id="username" placeholder="Usuario" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-input" id="password" placeholder="Contraseña" required>
+                </div>
+                <button class="auth-button" id="loginButton">Iniciar Sesión</button>
+            </div>
+            
+            <div class="two-factor-container" id="twoFactorContainer">
+                <h3>Verificación en Dos Pasos</h3>
+                <p>Código de verificación:</p>
+                <div class="verification-code" id="verificationCode"></div>
+                <div class="form-group">
+                    <input type="text" class="form-input" id="verificationInput" placeholder="Ingresa el código" maxlength="6">
+                </div>
+                <button class="auth-button" id="verifyButton">Verificar</button>
+            </div>
+            
+            <div id="authMessage"></div>
+        </div>
+    </div>
 
-    <!-- Services Section -->
-    <section id="services">
-        <div class="container">
-            <div class="section-content">
-                <h2 class="section-title" data-es="Nuestros Servicios" data-en="Our Services">Nuestros Servicios</h2>
-                <p class="section-text" data-es="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." data-en="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <p class="section-text" data-es="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." data-en="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Header -->
+        <header id="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/542123632_122162293736587780_8560985821777942292_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeElY5NgB_Qh3EG0ksI2Uwu_WvdU3bD-EK1a91TdsP4QrQKwrC8YAGzY_Bq3JkV1r_k&_nc_ohc=G8YhKH0IUT8Q7kNvwHpY30m&_nc_oc=AdnL6iCyFaZG6NLY7teDxrent9PjiKq4FV8cLQA3nVkPhrOF-TQsDNufG_ISaaiC8SE&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=y0b9zpHrcSnYyynZhNiBQg&oh=00_AfbJBpIuZT1rV3DLPGcUNu381a0BEwqgEISxNpj_sxyYlw&oe=68C55523" alt="Logo Aster">
+                    <h1 id="logoText">Creadores de Contenido</h1>
+                </div>
                 
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h3 data-es="Producción de Video" data-en="Video Production">Producción de Video</h3>
-                        <p data-es="Contenido de video profesional para redes sociales, comerciales y narración de marca que involucra a tu audiencia." data-en="Professional video content creation for social media, commercials, and brand storytelling that engages your audience.">Contenido de video profesional para redes sociales, comerciales y narración de marca que involucra a tu audiencia.</p>
-                    </div>
+                <nav class="nav-menu">
+                    <a href="#home" data-es="Inicio" data-en="Home">Inicio</a>
+                    <a href="#services" data-es="Servicios" data-en="Services">Servicios</a>
+                    <a href="#packs" data-es="Packs" data-en="Packs">Packs</a>
+                    <a href="#clients" data-es="Clientes" data-en="Clients">Clientes</a>
+                    <a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a>
+                </nav>
+                
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                
+                <div class="nav-controls">
+                    <button class="language-toggle" id="languageToggle">English</button>
+                    <button class="admin-button" id="adminButton">Admin</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" data-es="Inicio" data-en="Home">Inicio</a>
+            <a href="#services" data-es="Servicios" data-en="Services">Servicios</a>
+            <a href="#packs" data-es="Packs" data-en="Packs">Packs</a>
+            <a href="#clients" data-es="Clientes" data-en="Clients">Clientes</a>
+            <a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel" id="adminPanel">
+            <h2 class="admin-title">Panel de Administración</h2>
+            
+            <div class="admin-section">
+                <h3>Contenido del Hero</h3>
+                <input type="text" class="admin-input" id="heroTitle" placeholder="Título principal">
+                <input type="text" class="admin-input" id="heroSubtitle" placeholder="Subtítulo">
+                <button class="admin-save" onclick="updateHeroContent()">Guardar</button>
+            </div>
+            
+            <div class="admin-section">
+                <h3>Información de Contacto</h3>
+                <input type="text" class="admin-input" id="whatsappNumber" placeholder="Número de WhatsApp">
+                <input type="email" class="admin-input" id="emailAddress" placeholder="Correo electrónico">
+                <button class="admin-save" onclick="updateContactInfo()">Guardar</button>
+            </div>
+            
+            <div class="admin-section">
+                <h3>Redes Sociales</h3>
+                <input type="url" class="admin-input" id="instagramUrl" placeholder="URL de Instagram">
+                <input type="url" class="admin-input" id="facebookUrl" placeholder="URL de Facebook">
+                <button class="admin-save" onclick="updateSocialMedia()">Guardar</button>
+            </div>
+            
+            <button class="logout-button" onclick="logout()">Cerrar Sesión</button>
+        </div>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2 id="mainTitle" data-es="Creamos contenido convincente" data-en="We create compelling content">Creamos contenido convincente</h2>
+                <p class="rotating-text" id="rotatingText">Cautivamos a tu audiencia y generamos resultados</p>
+                <a href="#contact" class="cta-button" id="ctaButton" data-es="Comienza Tu Viaje" data-en="Start Your Journey">Comienza Tu Viaje</a>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title" data-es="Nuestros Servicios" data-en="Our Services">Nuestros Servicios</h2>
+                    <p class="section-text" data-es="Transformamos ideas en contenido visual extraordinario que conecta con tu audiencia y potencia tu marca en el mundo digital." data-en="We transform ideas into extraordinary visual content that connects with your audience and empowers your brand in the digital world.">Transformamos ideas en contenido visual extraordinario que conecta con tu audiencia y potencia tu marca en el mundo digital.</p>
                     
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-camera"></i>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3 data-es="Producción de Video" data-en="Video Production">Producción de Video</h3>
+                            <p data-es="Contenido audiovisual de alta calidad para redes sociales, comerciales y storytelling que cautiva y convierte." data-en="High-quality audiovisual content for social media, commercials and storytelling that captivates and converts.">Contenido audiovisual de alta calidad para redes sociales, comerciales y storytelling que cautiva y convierte.</p>
                         </div>
-                        <h3 data-es="Fotografía" data-en="Photography">Fotografía</h3>
-                        <p data-es="Contenido visual impactante que captura la esencia de tu marca y cuenta tu historia a través de imágenes convincentes." data-en="Stunning visual content that captures your brand's essence and tells your story through compelling imagery.">Contenido visual impactante que captura la esencia de tu marca y cuenta tu historia a través de imágenes convincentes.</p>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-pen-fancy"></i>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h3 data-es="Fotografía Creativa" data-en="Creative Photography">Fotografía Creativa</h3>
+                            <p data-es="Imágenes impactantes y composiciones artísticas que capturan la esencia única de tu marca." data-en="Stunning images and artistic compositions that capture your brand's unique essence.">Imágenes impactantes y composiciones artísticas que capturan la esencia única de tu marca.</p>
                         </div>
-                        <h3 data-es="Redacción de Contenido" data-en="Content Writing">Redacción de Contenido</h3>
-                        <p data-es="Redacción publicitaria y creación de contenido que resuena con tu audiencia y impulsa el compromiso." data-en="Captivating copywriting and content creation that resonates with your audience and drives engagement.">Redacción publicitaria y creación de contenido que resuena con tu audiencia y impulsa el compromiso.</p>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <h3 data-es="Estrategia de Contenido" data-en="Content Strategy">Estrategia de Contenido</h3>
+                            <p data-es="Creamos narrativas poderosas y estrategias de contenido que impulsan el engagement y las conversiones." data-en="We create powerful narratives and content strategies that drive engagement and conversions.">Creamos narrativas poderosas y estrategias de contenido que impulsan el engagement y las conversiones.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Packs Section -->
-    <section id="packs">
-        <div class="container">
-            <div class="section-content">
-                <h2 class="section-title" data-es="Paquetes de Contenido" data-en="Content Packs">Paquetes de Contenido</h2>
-                <p class="section-text" data-es="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." data-en="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                
-                <div class="packs-grid">
-                    <div class="pack-card">
-                        <h3 data-es="Paquete Inicial" data-en="Starter Pack">Paquete Inicial</h3>
-                        <p data-es="Perfecto para negocios nuevos" data-en="Perfect for new businesses">Perfecto para negocios nuevos</p>
-                        <div class="pack-price">$299</div>
-                        <p data-es="5 Publicaciones en Redes Sociales" data-en="5 Social Media Posts">5 Publicaciones en Redes Sociales</p>
-                        <p data-es="2 Videos Cortos" data-en="2 Short Videos">2 Videos Cortos</p>
-                        <p data-es="Branding Básico" data-en="Basic Branding">Branding Básico</p>
-                    </div>
+        <!-- Packs Section -->
+        <section id="packs">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title" data-es="Paquetes de Contenido" data-en="Content Packs">Paquetes de Contenido</h2>
+                    <p class="section-text" data-es="Soluciones personalizadas para cada etapa de tu negocio, desde startups hasta empresas consolidadas." data-en="Customized solutions for every stage of your business, from startups to established companies.">Soluciones personalizadas para cada etapa de tu negocio, desde startups hasta empresas consolidadas.</p>
                     
-                    <div class="pack-card">
-                        <h3 data-es="Paquete de Crecimiento" data-en="Growth Pack">Paquete de Crecimiento</h3>
-                        <p data-es="Ideal para marcas en crecimiento" data-en="Ideal for growing brands">Ideal para marcas en crecimiento</p>
-                        <div class="pack-price">$599</div>
-                        <p data-es="15 Publicaciones en Redes Sociales" data-en="15 Social Media Posts">15 Publicaciones en Redes Sociales</p>
-                        <p data-es="5 Videos Cortos" data-en="5 Short Videos">5 Videos Cortos</p>
-                        <p data-es="Branding Avanzado" data-en="Advanced Branding">Branding Avanzado</p>
-                        <p data-es="Estrategia Mensual" data-en="Monthly Strategy">Estrategia Mensual</p>
-                    </div>
-                    
-                    <div class="pack-card">
-                        <h3 data-es="Paquete Empresarial" data-en="Enterprise Pack">Paquete Empresarial</h3>
-                        <p data-es="Para negocios establecidos" data-en="For established businesses">Para negocios establecidos</p>
-                        <div class="pack-price">$999</div>
-                        <p data-es="Contenido Ilimitado" data-en="Unlimited Content">Contenido Ilimitado</p>
-                        <p data-es="Videos Premium" data-en="Premium Videos">Videos Premium</p>
-                        <p data-es="Gestión Completa de Marca" data-en="Full Brand Management">Gestión Completa de Marca</p>
-                        <p data-es="Soporte Dedicado" data-en="Dedicated Support">Soporte Dedicado</p>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <h3 data-es="Paquete Inicial" data-en="Starter Pack">Paquete Inicial</h3>
+                            <p data-es="Perfecto para negocios nuevos" data-en="Perfect for new businesses">Perfecto para negocios nuevos</p>
+                            <div style="font-size: 2rem; font-weight: 700; margin: 20px 0; color: #4facfe;">$299</div>
+                            <ul style="text-align: left; list-style: none; padding: 0;">
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="5 Publicaciones en Redes Sociales" data-en="5 Social Media Posts">5 Publicaciones en Redes Sociales</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="2 Videos Cortos" data-en="2 Short Videos">2 Videos Cortos</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Branding Básico" data-en="Basic Branding">Branding Básico</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="service-card" style="border: 2px solid #4facfe; transform: scale(1.05);">
+                            <div style="background: #4facfe; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.8rem; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);">MÁS POPULAR</div>
+                            <h3 data-es="Paquete de Crecimiento" data-en="Growth Pack">Paquete de Crecimiento</h3>
+                            <p data-es="Ideal para marcas en crecimiento" data-en="Ideal for growing brands">Ideal para marcas en crecimiento</p>
+                            <div style="font-size: 2rem; font-weight: 700; margin: 20px 0; color: #4facfe;">$599</div>
+                            <ul style="text-align: left; list-style: none; padding: 0;">
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="15 Publicaciones en Redes Sociales" data-en="15 Social Media Posts">15 Publicaciones en Redes Sociales</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="5 Videos Cortos" data-en="5 Short Videos">5 Videos Cortos</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Branding Avanzado" data-en="Advanced Branding">Branding Avanzado</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Estrategia Mensual" data-en="Monthly Strategy">Estrategia Mensual</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="service-card">
+                            <h3 data-es="Paquete Empresarial" data-en="Enterprise Pack">Paquete Empresarial</h3>
+                            <p data-es="Para negocios establecidos" data-en="For established businesses">Para negocios establecidos</p>
+                            <div style="font-size: 2rem; font-weight: 700; margin: 20px 0; color: #4facfe;">$999</div>
+                            <ul style="text-align: left; list-style: none; padding: 0;">
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Contenido Ilimitado" data-en="Unlimited Content">Contenido Ilimitado</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Videos Premium" data-en="Premium Videos">Videos Premium</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Gestión Completa de Marca" data-en="Full Brand Management">Gestión Completa de Marca</span></li>
+                                <li style="margin: 10px 0;"><i class="fas fa-check" style="color: #4facfe; margin-right: 10px;"></i><span data-es="Soporte Dedicado" data-en="Dedicated Support">Soporte Dedicado</span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Clients Section -->
-    <section id="clients">
-        <div class="container">
-            <div class="section-content">
-                <h2 class="section-title" data-es="Nuestros Clientes" data-en="Our Clients">Nuestros Clientes</h2>
-                <p class="section-text" data-es="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." data-en="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                
-                <div class="clients-grid">
-                    <div class="client-card">
-                        <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/431866510_958189016310593_3824456201579447925_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeG4tkZ8iMx-mfkFh-QYujVIEnJMSpfjR1oSckxKl-NHWjspx_oNb11P48sBTczOZJs&_nc_ohc=UkoWWJ7uhEkQ7kNvwFPe8b0&_nc_oc=Adls1ot0oUHa1o8wivCSHna7TTdladSl5kS_TT4z7OVOOwWsY8C5x7toIUuMl7WXUQM&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=AXQQnq8J7hlAA4UIY-qOqQ&oh=00_AfQPa7zPdAybl5-MeGBqJsvtU2eYjTMaG1QNSpa1npf1dg&oe=688B9AE1" alt="Cliente 1" class="client-logo">
-                        <h3>Hotel Casa Blanca</h3>
-                        <a href="https://www.instagram.com/hotelcasablancasalta/" class="contact-link" data-es="Ver Portafolio" data-en="View Portfolio">Visitar</a>
-                    </div>
+        <!-- Clients Section -->
+        <section id="clients">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title" data-es="Nuestros Clientes" data-en="Our Clients">Nuestros Clientes</h2>
+                    <p class="section-text" data-es="Colaboramos con marcas visionarias que buscan destacar en el mercado digital con contenido auténtico y de impacto." data-en="We collaborate with visionary brands seeking to stand out in the digital market with authentic and impactful content.">Colaboramos con marcas visionarias que buscan destacar en el mercado digital con contenido auténtico y de impacto.</p>
                     
-                    <div class="client-card">
-                        <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/474586359_10231938963890544_3877973136841341022_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHg9nf9lrJh3abKW03RXjXYU2nudMD6z8tTae50wPrPyxnI3Mw-BLLMJJLGLs5GpMk&_nc_ohc=UHp7l-YC-r0Q7kNvwGlxJQA&_nc_oc=Adn-1XnU-Zn62kxzmFVGvQiBmzBUkYqkyuEuiBDh6nM26xWdcTCco9AhFukxp76y4d4&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=l1sRwD-pLvLuhw8ok0Qd1A&oh=00_AfTep0cxAqrOrhL4HmpzcHD_a53S6-vIs2pSPpfy9s5KCg&oe=688B7CC3" alt="Cliente 2" class="client-logo">
-                        <h3>El Moro Carnes</h3>
-                        <a href="https://www.instagram.com/elmorocarnes/" class="contact-link" data-es="Ver Portafolio" data-en="View Portfolio">Visitar</a>
-                    </div>
-                    
-                    <div class="client-card">
-                        <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/386348002_122103090014067098_879092504150092001_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFffSbvixshHTRwGPcj0Tm5ipy977vlT5WKnL3vu-VPlW-Qe9Rqdi9_JCdYzSLVSMA&_nc_ohc=YUH6r79ApgoQ7kNvwFmF6fE&_nc_oc=AdnvoNdsaNwQbErOnOwokT90a5dGKxHLLhP_DrPKkYJFDwvTl0zdo8rBe81Cgz_FSg8&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=Iz9RI4dhok1HvNCLdgFVKg&oh=00_AfSbb04hrJAcYY2MdJa_S8pAi63k0E9hj2vo8HkHOuZCLg&oe=688B8CF1" alt="Cliente 3" class="client-logo">
-                        <h3>Killary Gimnasia Ritmica</h3>
-                        <a href="https://www.instagram.com/killary.gimnasiaritmica/" class="contact-link" data-es="Ver Portafolio" data-en="View Portfolio">Visitar</a>
-                    </div>
-                    
-                    <div class="client-card">
-                        <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/500766911_1208164367768401_3101416191870027747_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFQj8mH2tHeFmTSJvcA6H9WABQdnhl-59IAFB2eGX7n0sjR628VC5SnHm1ogFqFPOM&_nc_ohc=WYnQUp64cicQ7kNvwEsYWn2&_nc_oc=Adnik8dVPTV4uZKQFOAPpGfLSbfJHi1rY5VKzrByqW5tl1Jz_0pdDh9FTnDeK06YPmo&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=nBCUaQ6a8dz5ymIjQquqJw&oh=00_AfQX3RogoCD79OElDXwk1Dl0mZjUHeu3YE7X1Y-41aDWKQ&oe=688B7622" alt="Cliente 4" class="client-logo">
-                        <h3>Marca Cuatro</h3>
-                        <a href="https://www.instagram.com/steelosalta/" class="contact-link" data-es="Ver Portafolio" data-en="View Portfolio">Ver Portafolio</a>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/431866510_958189016310593_3824456201579447925_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeG4tkZ8iMx-mfkFh-QYujVIEnJMSpfjR1oSckxKl-NHWjspx_oNb11P48sBTczOZJs&_nc_ohc=UkoWWJ7uhEkQ7kNvwFPe8b0&_nc_oc=Adls1ot0oUHa1o8wivCSHna7TTdladSl5kS_TT4z7OVOOwWsY8C5x7toIUuMl7WXUQM&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=AXQQnq8J7hlAA4UIY-qOqQ&oh=00_AfQPa7zPdAybl5-MeGBqJsvtU2eYjTMaG1QNSpa1npf1dg&oe=688B9AE1" alt="Hotel Casa Blanca" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;">
+                            <h3>Hotel Casa Blanca</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;">Hospitalidad Premium</p>
+                            <a href="https://www.instagram.com/hotelcasablancasalta/" class="cta-button" style="padding: 10px 20px; font-size: 0.9rem;" data-es="Visitar" data-en="Visit">Visitar</a>
+                        </div>
+                        
+                        <div class="service-card">
+                            <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/474586359_10231938963890544_3877973136841341022_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHg9nf9lrJh3abKW03RXjXYU2nudMD6z8tTae50wPrPyxnI3Mw-BLLMJJLGLs5GpMk&_nc_ohc=UHp7l-YC-r0Q7kNvwGlxJQA&_nc_oc=Adn-1XnU-Zn62kxzmFVGvQiBmzBUkYqkyuEuiBDh6nM26xWdcTCco9AhFukxp76y4d4&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=l1sRwD-pLvLuhw8ok0Qd1A&oh=00_AfTep0cxAqrOrhL4HmpzcHD_a53S6-vIs2pSPpfy9s5KCg&oe=688B7CC3" alt="El Moro Carnes" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;">
+                            <h3>El Moro Carnes</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;">Gastronomía Artesanal</p>
+                            <a href="https://www.instagram.com/elmorocarnes/" class="cta-button" style="padding: 10px 20px; font-size: 0.9rem;" data-es="Visitar" data-en="Visit">Visitar</a>
+                        </div>
+                        
+                        <div class="service-card">
+                            <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/386348002_122103090014067098_879092504150092001_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFffSbvixshHTRwGPcj0Tm5ipy977vlT5WKnL3vu-VPlW-Qe9Rqdi9_JCdYzSLVSMA&_nc_ohc=YUH6r79ApgoQ7kNvwFmF6fE&_nc_oc=AdnvoNdsaNwQbErOnOwokT90a5dGKxHLLhP_DrPKkYJFDwvTl0zdo8rBe81Cgz_FSg8&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=Iz9RI4dhok1HvNCLdgFVKg&oh=00_AfSbb04hrJAcYY2MdJa_S8pAi63k0E9hj2vo8HkHOuZCLg&oe=688B8CF1" alt="Killary Gimnasia" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;">
+                            <h3>Killary Gimnasia Ritmica</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;">Deporte y Arte</p>
+                            <a href="https://www.instagram.com/killary.gimnasiaritmica/" class="cta-button" style="padding: 10px 20px; font-size: 0.9rem;" data-es="Visitar" data-en="Visit">Visitar</a>
+                        </div>
+                        
+                        <div class="service-card">
+                            <img src="https://scontent.fsla3-1.fna.fbcdn.net/v/t39.30808-6/500766911_1208164367768401_3101416191870027747_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFQj8mH2tHeFmTSJvcA6H9WABQdnhl-59IAFB2eGX7n0sjR628VC5SnHm1ogFqFPOM&_nc_ohc=WYnQUp64cicQ7kNvwEsYWn2&_nc_oc=Adnik8dVPTV4uZKQFOAPpGfLSbfJHi1rY5VKzrByqW5tl1Jz_0pdDh9FTnDeK06YPmo&_nc_zt=23&_nc_ht=scontent.fsla3-1.fna&_nc_gid=nBCUaQ6a8dz5ymIjQquqJw&oh=00_AfQX3RogoCD79OElDXwk1Dl0mZjUHeu3YE7X1Y-41aDWKQ&oe=688B7622" alt="Marca Cuatro" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;">
+                            <h3>Marca Cuatro</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;">Moda y Estilo</p>
+                            <a href="https://www.instagram.com/steelosalta/" class="cta-button" style="padding: 10px 20px; font-size: 0.9rem;" data-es="Ver Portfolio" data-en="View Portfolio">Ver Portfolio</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-content">
-                <h2 class="section-title" data-es="Contáctanos" data-en="Get In Touch">Contáctanos</h2>
-                <p class="section-text" data-es="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." data-en="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <h3>WhatsApp</h3>
-                        <a href="https://wa.me/1234567890" class="contact-link">+1 234 567 890</a>
-                    </div>
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="section-title" data-es="Contáctanos" data-en="Get In Touch">Contáctanos</h2>
+                    <p class="section-text" data-es="Estamos listos para transformar tu visión en contenido excepcional. Conectemos y creemos algo extraordinario juntos." data-en="We're ready to transform your vision into exceptional content. Let's connect and create something extraordinary together.">Estamos listos para transformar tu visión en contenido excepcional. Conectemos y creemos algo extraordinario juntos.</p>
                     
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <h3>WhatsApp</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;">Conversemos en tiempo real</p>
+                            <a href="https://wa.me/1234567890" id="whatsappLink" class="cta-button" style="padding: 10px 20px; font-size: 0.9rem;">+1 234 567 890</a>
                         </div>
-                        <h3 data-es="Correo Electrónico" data-en="Email">Correo Electrónico</h3>
-                        <a href="mailto:info@creadoresdecontenido.com" class="contact-link">info@creadoresdecontenido.com</a>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-instagram"></i>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3 data-es="Correo Electrónico" data-en="Email">Correo Electrónico</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;" data-es="Proyectos y consultas" data-en="Projects and inquiries">Proyectos y consultas</p>
+                            <a href="mailto:info@creadoresdecontenido.com" id="emailLink" class="cta-button" style="padding: 10px 20px; font-size: 0.9rem;">info@creadoresdecontenido.com</a>
                         </div>
-                        <h3>Instagram</h3>
-                        <a href="https://www.instagram.com/agenciaaster.salta/" class="contact-link">Agencia Aster</a>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-facebook"></i>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <h3>Instagram</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;" data-es="Síguenos para inspiración" data-en="Follow us for inspiration">Síguenos para inspiración</p>
+                            <a href="https://www.instagram.com/agenciaaster.salta/" id="instagramLink" class="cta-button" style="padding: 10px 20px; font-size: 0.9rem;">@agenciaaster.salta</a>
                         </div>
-                        <h3>Facebook</h3>
-                        <a href="https://www.facebook.com/profile.php?id=61567633411299s" class="contact-link">Agencia Aster</a>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fab fa-facebook"></i>
+                            </div>
+                            <h3>Facebook</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 20px;" data-es="Comunidad creativa" data-en="Creative community">Comunidad creativa</p>
+                            <a href="https://www.facebook.com/profile.php?id=61567633411299s" id="facebookLink" class="cta-button" style="padding: 10px 20px; font-size: 0.9rem;">Agencia Aster</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
+    <script>
+        // Global Variables
+        let currentLanguage = 'es';
+        let isAuthenticated = false;
+        let currentMessageIndex = 0;
+        let verificationCode = '';
 
+        // Rotating Messages
+        const rotatingMessages = {
+            es: [
+                "Cautivamos a tu audiencia y generamos resultados",
+                "Permitimos contar la historia de tu marca",
+                "Creamos experiencias visuales únicas",
+                "Transformamos ideas en contenido viral"
+            ],
+            en: [
+                "We captivate your audience and generate results",
+                "We allow you to tell your brand's story", 
+                "We create unique visual experiences",
+                "We transform ideas into viral content"
+            ]
+        };
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            createBackgroundParticles();
+            showLoadingScreen();
+            initializeEventListeners();
+            startMessageRotation();
+        });
+
+        // Create animated background particles
+        function createBackgroundParticles() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Show loading screen with logo animation
+        function showLoadingScreen() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    document.getElementById('mainContent').classList.add('active');
+                }, 1000);
+            }, 3000);
+        }
+
+        // Initialize all event listeners
+        function initializeEventListeners() {
+            // Language toggle
+            document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
+            
+            // Admin button
+            document.getElementById('adminButton').addEventListener('click', showAuthModal);
+            
+            // Login form
+            document.getElementById('loginButton').addEventListener('click', handleLogin);
+            document.getElementById('verifyButton').addEventListener('click', handleVerification);
+            
+            // Mobile menu
+            document.getElementById('hamburger').addEventListener('click', toggleMobileMenu);
+            
+            // Close mobile menu when clicking links
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('mobileMenu').classList.remove('active');
+                    document.getElementById('hamburger').classList.remove('active');
+                });
+            });
+            
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('header');
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Close admin panel when clicking outside
+            document.addEventListener('click', (e) => {
+                const adminPanel = document.getElementById('adminPanel');
+                const adminButton = document.getElementById('adminButton');
+                if (!adminPanel.contains(e.target) && !adminButton.contains(e.target)) {
+                    adminPanel.classList.remove('active');
+                }
+            });
+
+            // Close auth modal when clicking outside
+            document.addEventListener('click', (e) => {
+                const authModal = document.getElementById('authModal');
+                const authContainer = document.querySelector('.auth-container');
+                if (authModal.classList.contains('active') && !authContainer.contains(e.target)) {
+                    authModal.classList.remove('active');
+                }
+            });
+        }
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Language toggle functionality
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const elements = document.querySelectorAll('[data-es], [data-en]');
+            
+            elements.forEach(element => {
+                if (element.id !== 'rotatingText') {
+                    if (currentLanguage === 'es') {
+                        element.textContent = element.getAttribute('data-es') || element.textContent;
+                    } else {
+                        element.textContent = element.getAttribute('data-en') || element.textContent;
+                    }
+                }
+            });
+            
+            // Update rotating text
+            const rotatingTextElement = document.getElementById('rotatingText');
+            currentMessageIndex = 0;
+            rotatingTextElement.textContent = rotatingMessages[currentLanguage][currentMessageIndex];
+            
+            // Update language toggle button
+            document.getElementById('languageToggle').textContent = currentLanguage === 'es' ? 'English' : 'Español';
+            
+            // Update document language
+            document.documentElement.lang = currentLanguage;
+        }
+
+        // Message rotation functionality
+        function startMessageRotation() {
+            setInterval(rotateMessages, 4000);
+        }
+
+        function rotateMessages() {
+            const textElement = document.getElementById('rotatingText');
+            
+            textElement.style.opacity = '0';
+            textElement.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                currentMessageIndex = (currentMessageIndex + 1) % rotatingMessages[currentLanguage].length;
+                textElement.textContent = rotatingMessages[currentLanguage][currentMessageIndex];
+                
+                textElement.style.opacity = '1';
+                textElement.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        // Authentication functionality
+        function showAuthModal() {
+            if (isAuthenticated) {
+                toggleAdminPanel();
+            } else {
+                document.getElementById('authModal').classList.add('active');
+            }
+        }
+
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'ASTER' && password === 'agencia100') {
+                // Show two-factor authentication
+                generateVerificationCode();
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('twoFactorContainer').style.display = 'block';
+            } else {
+                showMessage('error', 'Usuario o contraseña incorrectos');
+            }
+        }
+
+        function generateVerificationCode() {
+            verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+            document.getElementById('verificationCode').textContent = verificationCode;
+        }
+
+        function handleVerification() {
+            const inputCode = document.getElementById('verificationInput').value;
+            
+            if (inputCode === verificationCode) {
+                isAuthenticated = true;
+                document.getElementById('authModal').classList.remove('active');
+                toggleAdminPanel();
+                showMessage('success', 'Acceso autorizado');
+                
+                // Reset form
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('twoFactorContainer').style.display = 'none';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('verificationInput').value = '';
+            } else {
+                showMessage('error', 'Código de verificación incorrecto');
+            }
+        }
+
+        function showMessage(type, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            
+            const authMessage = document.getElementById('authMessage');
+            authMessage.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+
+        function toggleAdminPanel() {
+            const adminPanel = document.getElementById('adminPanel');
+            adminPanel.classList.toggle('active');
+            
+            if (adminPanel.classList.contains('active')) {
+                loadCurrentContent();
+            }
+        }
+
+        function loadCurrentContent() {
+            // Load current content into admin inputs
+            const heroTitle = document.getElementById('mainTitle').getAttribute('data-es');
+            const heroSubtitle = rotatingMessages.es[0];
+            
+            document.getElementById('heroTitle').value = heroTitle || '';
+            document.getElementById('heroSubtitle').value = heroSubtitle || '';
+            
+            // Load contact info
+            const whatsappLink = document.getElementById('whatsappLink');
+            const emailLink = document.getElementById('emailLink');
+            const instagramLink = document.getElementById('instagramLink');
+            const facebookLink = document.getElementById('facebookLink');
+            
+            document.getElementById('whatsappNumber').value = whatsappLink.textContent;
+            document.getElementById('emailAddress').value = emailLink.textContent;
+            document.getElementById('instagramUrl').value = instagramLink.href;
+            document.getElementById('facebookUrl').value = facebookLink.href;
+        }
+
+        // Admin panel functions
+        function updateHeroContent() {
+            const newTitle = document.getElementById('heroTitle').value;
+            const newSubtitle = document.getElementById('heroSubtitle').value;
+            
+            if (newTitle) {
+                document.getElementById('mainTitle').setAttribute('data-es', newTitle);
+                document.getElementById('mainTitle').setAttribute('data-en', newTitle);
+                if (currentLanguage === 'es') {
+                    document.getElementById('mainTitle').textContent = newTitle;
+                }
+            }
+            
+            if (newSubtitle) {
+                rotatingMessages.es[0] = newSubtitle;
+                rotatingMessages.en[0] = newSubtitle;
+                if (currentMessageIndex === 0) {
+                    document.getElementById('rotatingText').textContent = newSubtitle;
+                }
+            }
+            
+            showAdminMessage('success', 'Contenido del hero actualizado');
+        }
+
+        function updateContactInfo() {
+            const whatsapp = document.getElementById('whatsappNumber').value;
+            const email = document.getElementById('emailAddress').value;
+            
+            if (whatsapp) {
+                const whatsappLink = document.getElementById('whatsappLink');
+                whatsappLink.href = `https://wa.me/${whatsapp.replace(/\D/g, '')}`;
+                whatsappLink.textContent = whatsapp;
+            }
+            
+            if (email) {
+                const emailLink = document.getElementById('emailLink');
+                emailLink.href = `mailto:${email}`;
+                emailLink.textContent = email;
+            }
+            
+            showAdminMessage('success', 'Información de contacto actualizada');
+        }
+
+        function updateSocialMedia() {
+            const instagram = document.getElementById('instagramUrl').value;
+            const facebook = document.getElementById('facebookUrl').value;
+            
+            if (instagram) {
+                document.getElementById('instagramLink').href = instagram;
+            }
+            
+            if (facebook) {
+                document.getElementById('facebookLink').href = facebook;
+            }
+            
+            showAdminMessage('success', 'Redes sociales actualizadas');
+        }
+
+        function showAdminMessage(type, message) {
+            // Create a temporary notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#2ecc71' : '#e74c3c'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 5px;
+                z-index: 10001;
+                font-weight: 500;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                animation: slideInRight 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 2500);
+        }
+
+        function logout() {
+            isAuthenticated = false;
+            document.getElementById('adminPanel').classList.remove('active');
+            document.getElementById('adminButton').textContent = 'Admin';
+            showAdminMessage('success', 'Sesión cerrada');
+        }
+
+        // Add keyboard support for forms
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                if (document.getElementById('authModal').classList.contains('active')) {
+                    if (document.getElementById('loginForm').style.display !== 'none') {
+                        handleLogin();
+                    } else {
+                        handleVerification();
+                    }
+                }
+            }
+        });
+
+        // Add additional CSS animations
+        const additionalStyles = document.createElement('style');
+        additionalStyles.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            /* Additional hover effects */
+            .service-card {
+                cursor: pointer;
+            }
+            
+            .service-card:hover h3 {
+                color: #4facfe;
+                transition: color 0.3s ease;
+            }
+            
+            .cta-button {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .admin-button.authenticated {
+                background: linear-gradient(135deg, #2ecc71, #27ae60);
+            }
+            
+            /* Loading screen improvements */
+            .loading-screen {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            }
+            
+            .loading-screen::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.1) 100%);
+            }
+            
+            /* Improve mobile responsiveness */
+            @media (max-width: 768px) {
+                .hero h2 {
+                    font-size: 2.5rem;
+                    line-height: 1.2;
+                }
+                
+                .rotating-text {
+                    font-size: 1.2rem;
+                    padding: 0 20px;
+                }
+                
+                .section-content {
+                    margin: 20px;
+                    padding: 40px 25px;
+                }
+                
+                .services-grid {
+                    grid-template-columns: 1fr;
+                    gap: 25px;
+                }
+                
+                .service-card {
+                    padding: 30px 25px;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .hero h2 {
+                    font-size: 2rem;
+                }
+                
+                .section-title {
+                    font-size: 1.8rem;
+                }
+                
+                .logo h1 {
+                    font-size: 1.2rem;
+                }
+                
+                .auth-container {
+                    margin: 20px;
+                    padding: 30px 25px;
+                }
+            }
+            
+            /* Accessibility improvements */
+            .form-input:focus,
+            .admin-input:focus {
+                outline: 2px solid #4facfe;
+                outline-offset: 2px;
+            }
+            
+            .auth-button:focus,
+            .admin-save:focus,
+            .logout-button:focus,
+            .cta-button:focus {
+                outline: 2px solid #ffffff;
+                outline-offset: 2px;
+            }
+            
+            /* Improve loading animation */
+            .animated-logo {
+                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+            }
+            
+            .logo-ring {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+            }
+            
+            /* Enhanced particle animation */
+            .particle {
+                box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+            }
+            
+            .particle:nth-child(odd) {
+                background: rgba(79, 172, 254, 0.6);
+            }
+            
+            .particle:nth-child(even) {
+                background: rgba(240, 147, 251, 0.6);
+            }
+        `;
+        document.head.appendChild(additionalStyles);
+
+        // Update admin button appearance when authenticated
+        function updateAdminButtonAppearance() {
+            const adminButton = document.getElementById('adminButton');
+            if (isAuthenticated) {
+                adminButton.classList.add('authenticated');
+                adminButton.textContent = 'Panel';
+            } else {
+                adminButton.classList.remove('authenticated');
+                adminButton.textContent = 'Admin';
+            }
+        }
+
+        // Enhance the authentication flow
+        const originalToggleAdminPanel = toggleAdminPanel;
+        toggleAdminPanel = function() {
+            originalToggleAdminPanel();
+            updateAdminButtonAppearance();
+        };
+
+        const originalLogout = logout;
+        logout = function() {
+            originalLogout();
+            updateAdminButtonAppearance();
+        };
+
+        // Initialize admin button appearance
+        updateAdminButtonAppearance();
+        
+        // Add pulse effect to CTA button
+        setInterval(() => {
+            const ctaButton = document.getElementById('ctaButton');
+            if (ctaButton) {
+                ctaButton.classList.add('pulse');
+                setTimeout(() => {
+                    ctaButton.classList.remove('pulse');
+                }, 2000);
+            }
+        }, 8000);
+
+        console.log('🚀 Agencia Aster - Sitio web cargado exitosamente!');
+        console.log('🎨 Interfaz artística e interactiva activada');
+        console.log('🔐 Sistema de autenticación: Usuario "ASTER", Contraseña "agencia100"');
+    </script>
 </body>
-
 </html>
