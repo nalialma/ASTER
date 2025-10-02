@@ -1,1 +1,24 @@
-
+{
+  "title": {
+    "es": "Creamos contenido convincente",
+    "en": "We create compelling content"
+  },
+  "subtitle": {
+    "es": "Cautivamos a tu audiencia y generamos resultados",
+    "en": "We captivate your audience and generate results"
+  },
+  "rotating_messages_es": [
+    "Cautivamos a tu audiencia y generamos resultados",
+    "Permitimos contar la historia de tu marca",
+    "Creamos experiencias visuales únicas",
+    "Transformamos ideas en contenido viral"
+  ],
+  "rotating_messages_en": [
+    "We captivate your audience and generate results",
+    "We allow you to tell your brand's story",
+    "We create unique visual experiences",
+    "We transform ideas into viral content"
+  ],
+  "cta_text_es": "Comienza Tu Viaje",
+  "cta_text_en": "Start Your Journey"
+}
