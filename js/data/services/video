@@ -1,0 +1,12 @@
+{
+  "order": 1,
+  "icon": "fas fa-video",
+  "title": {
+    "es": "Producción de Video",
+    "en": "Video Production"
+  },
+  "description": {
+    "es": "Contenido audiovisual de alta calidad para redes sociales, comerciales y storytelling que cautiva y convierte.",
+    "en": "High-quality audiovisual content for social media, commercials and storytelling that captivates and converts."
+  }
+}
