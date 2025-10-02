@@ -1,0 +1,27 @@
+{
+  "order": 1,
+  "featured": false,
+  "name": {
+    "es": "Paquete Inicial",
+    "en": "Starter Pack"
+  },
+  "description": {
+    "es": "Perfecto para negocios nuevos",
+    "en": "Perfect for new businesses"
+  },
+  "price": "$299",
+  "features": [
+    {
+      "es": "5 Publicaciones en Redes Sociales",
+      "en": "5 Social Media Posts"
+    },
+    {
+      "es": "2 Videos Cortos",
+      "en": "2 Short Videos"
+    },
+    {
+      "es": "Branding Básico",
+      "en": "Basic Branding"
+    }
+  ]
+}
