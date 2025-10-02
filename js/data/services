@@ -1,1 +1,40 @@
 
+{
+  "order": 1,
+  "icon": "fas fa-video",
+  "title": {
+    "es": "Producción de Video",
+    "en": "Video Production"
+  },
+  "description": {
+    "es": "Contenido audiovisual de alta calidad para redes sociales, comerciales y storytelling que cautiva y convierte.",
+    "en": "High-quality audiovisual content for social media, commercials and storytelling that captivates and converts."
+  }
+}
+
+{
+  "order": 2,
+  "icon": "fas fa-camera",
+  "title": {
+    "es": "Fotografía Creativa",
+    "en": "Creative Photography"
+  },
+  "description": {
+    "es": "Imágenes impactantes y composiciones artísticas que capturan la esencia única de tu marca.",
+    "en": "Stunning images and artistic compositions that capture your brand's unique essence."
+  }
+}
+
+
+{
+  "order": 3,
+  "icon": "fas fa-pen-fancy",
+  "title": {
+    "es": "Estrategia de Contenido",
+    "en": "Content Strategy"
+  },
+  "description": {
+    "es": "Creamos narrativas poderosas y estrategias de contenido que impulsan el engagement y las conversiones.",
+    "en": "We create powerful narratives and content strategies that drive engagement and conversions."
+  }
+}
