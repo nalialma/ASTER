@@ -1,0 +1,12 @@
+{
+  "order": 3,
+  "icon": "fas fa-pen-fancy",
+  "title": {
+    "es": "Estrategia de Contenido",
+    "en": "Content Strategy"
+  },
+  "description": {
+    "es": "Creamos narrativas poderosas y estrategias de contenido que impulsan el engagement y las conversiones.",
+    "en": "We create powerful narratives and content strategies that drive engagement and conversions."
+  }
+}
