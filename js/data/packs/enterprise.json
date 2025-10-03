@@ -1,0 +1,31 @@
+{
+  "order": 3,
+  "featured": false,
+  "name": {
+    "es": "Paquete Empresarial",
+    "en": "Enterprise Pack"
+  },
+  "description": {
+    "es": "Para negocios establecidos",
+    "en": "For established businesses"
+  },
+  "price": "$999",
+  "features": [
+    {
+      "es": "Contenido Ilimitado",
+      "en": "Unlimited Content"
+    },
+    {
+      "es": "Videos Premium",
+      "en": "Premium Videos"
+    },
+    {
+      "es": "Gestión Completa de Marca",
+      "en": "Full Brand Management"
+    },
+    {
+      "es": "Soporte Dedicado",
+      "en": "Dedicated Support"
+    }
+  ]
+}
