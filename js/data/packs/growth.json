@@ -1,0 +1,31 @@
+{
+  "order": 2,
+  "featured": true,
+  "name": {
+    "es": "Paquete de Crecimiento",
+    "en": "Growth Pack"
+  },
+  "description": {
+    "es": "Ideal para marcas en crecimiento",
+    "en": "Ideal for growing brands"
+  },
+  "price": "$599",
+  "features": [
+    {
+      "es": "15 Publicaciones en Redes Sociales",
+      "en": "15 Social Media Posts"
+    },
+    {
+      "es": "5 Videos Cortos",
+      "en": "5 Short Videos"
+    },
+    {
+      "es": "Branding Avanzado",
+      "en": "Advanced Branding"
+    },
+    {
+      "es": "Estrategia Mensual",
+      "en": "Monthly Strategy"
+    }
+  ]
+}
