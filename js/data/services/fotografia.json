@@ -1,0 +1,12 @@
+{
+  "order": 2,
+  "icon": "fas fa-camera",
+  "title": {
+    "es": "Fotografía Creativa",
+    "en": "Creative Photography"
+  },
+  "description": {
+    "es": "Imágenes impactantes y composiciones artísticas que capturan la esencia única de tu marca.",
+    "en": "Stunning images and artistic compositions that capture your brand's unique essence."
+  }
+}
