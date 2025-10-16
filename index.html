@@ -25,42 +25,44 @@
 
     <!-- Authentication Modal -->
     
-        <div "class="auth-container">
-           <h2  class="auth-title">Acceso Administrador></h2>
-            <div  <a href="admin.html id="loginForm">
-                <div class="form-group">
-                    <div class= "auth-modal" id="autModal">
-                    <input type="text" class="form-input" id="username" placeholder="Usuario" required> </a>
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-input" id="password" placeholder="Contraseña" required>
-                </div>
-                <button class="auth-button" id="loginButton">Iniciar Sesión</button>
+    <!-- Auth Overlay -->
+<div class="auth-overlay hidden" id="authOverlay">
+    <div class="auth-container">
+        <h2 class="auth-title">Acceso Administrador</h2>
+        
+        <div id="loginForm">
+            <div class="form-group">
+                <input type="text" class="form-input" id="username" placeholder="Usuario" required>
             </div>
-            
-            <div class="two-factor-container" id="twoFactorContainer">
-                <h3>Verificación en Dos Pasos</h3>
-                <p>Código de verificación:</p>
-                <div class="verification-code" id="verificationCode"></div>
-                <div class="form-group">
-                    <input type="text" class="form-input" id="verificationInput" placeholder="Ingresa el código" maxlength="6">
-                </div>
-                <button class="auth-button" id="verifyButton">Verificar</button>
+            <div class="form-group">
+                <input type="password" class="form-input" id="password" placeholder="Contraseña" required>
             </div>
-            
-            <div id="authMessage"></div>
+            <button class="auth-button" id="loginButton">Iniciar Sesión</button>
         </div>
+        
+        <div class="two-factor-container" id="twoFactorContainer">
+            <h3>Verificación en Dos Pasos</h3>
+            <p>Código de verificación:</p>
+            <div class="verification-code" id="verificationCode"></div>
+            <div class="form-group">
+                <input type="text" class="form-input" id="verificationInput" placeholder="Ingresa el código" maxlength="6">
+            </div>
+            <button class="auth-button" id="verifyButton">Verificar</button>
+        </div>
+        
+        <div id="authMessage"></div>
     </div>
+</div>
 
-    <!-- Main Content -->
-    <div class="main-content" id="mainContent">
-        <!-- Header -->
-        <header id="header">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/542123632_122162293736587780_8560985821777942292_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeElY5NgB_Qh3EG0ksI2Uwu_WvdU3bD-EK1a91TdsP4QrQKwrC8YAGzY_Bq3JkV1r_k&_nc_ohc=IrAMiZQBKjEQ7kNvwGqMZEo&_nc_oc=Adl0NSrKr8yisFHzdbMG08O19f5AeY1G87z6hfA-GumOOKF6hYvGfkGh98IUglCMKbU&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=LsPUjBPhJLEc4wLKaHaptQ&oh=00_AfYMAcudLokDN7kI-vEabMRPf_hFxeV22q8rhdliQ6XJ8Q&oe=68E3A7A3" alt="Logo Aster">
-                    <h1 id="logoText">Creadores de Contenido</h1>
-                </div>
+<!-- Main Content -->
+<div class="main-content" id="mainContent">
+    <!-- Header -->
+    <header id="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="https://scontent.fsla4-1.fna.fbcdn.net/v/t39.30808-6/542123632_122162293736587780_8560985821777942292_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeElY5NgB_Qh3EG0ksI2Uwu_WvdU3bD-EK1a91TdsP4QrQKwrC8YAGzY_Bq3JkV1r_k&_nc_ohc=IrAMiZQBKjEQ7kNvwGqMZEo&_nc_oc=Adl0NSrKr8yisFHzdbMG08O19f5AeY1G87z6hfA-GumOOKF6hYvGfkGh98IUglCMKbU&_nc_zt=23&_nc_ht=scontent.fsla4-1.fna&_nc_gid=LsPUjBPhJLEc4wLKaHaptQ&oh=00_AfYMAcudLokDN7kI-vEabMRPf_hFxeV22q8rhdliQ6XJ8Q&oe=68E3A7A3" alt="Logo Aster">
+                <h1 id="logoText">Creadores de Contenido</h1>
+            </div>
                 
                 <nav class="nav-menu">
                     <a href="#home" data-es="Inicio" data-en="Home">Inicio</a>
@@ -305,6 +307,7 @@
     <script src="js/script.js"></script>
 </body>
 </html>
+
 
 
 
