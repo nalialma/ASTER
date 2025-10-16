@@ -25,34 +25,38 @@
 
     <!-- Authentication Modal -->
     
-    <!-- Auth Overlay -->
+<!-- Auth Overlay -->
 <div class="auth-overlay hidden" id="authOverlay">
-    <div class="auth-container">
-        <h2 class="auth-title">Acceso Administrador</h2>
-        
-        <div id="loginForm">
-            <div class="form-group">
-                <input type="text" class="form-input" id="username" placeholder="Usuario" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-input" id="password" placeholder="Contraseña" required>
-            </div>
-            <button class="auth-button" id="loginButton">Iniciar Sesión</button>
-        </div>
-        
-        <div class="two-factor-container" id="twoFactorContainer">
-            <h3>Verificación en Dos Pasos</h3>
-            <p>Código de verificación:</p>
-            <div class="verification-code" id="verificationCode"></div>
-            <div class="form-group">
-                <input type="text" class="form-input" id="verificationInput" placeholder="Ingresa el código" maxlength="6">
-            </div>
-            <button class="auth-button" id="verifyButton">Verificar</button>
-        </div>
-        
-        <div id="authMessage"></div>
+  <div class="auth-container">
+    <h2 class="auth-title">Acceso Administrador</h2>
+
+    <!-- Login Form -->
+    <div id="loginForm">
+      <div class="form-group">
+        <input type="text" class="form-input" id="username" placeholder="Usuario" required>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-input" id="password" placeholder="Contraseña" required>
+      </div>
+      <button class="auth-button" id="loginButton">Iniciar Sesión</button>
     </div>
+
+    <!-- Two Factor Auth -->
+    <div class="two-factor-container hidden" id="twoFactorContainer">
+      <h3>Verificación en Dos Pasos</h3>
+      <p>Código de verificación:</p>
+      <div class="verification-code" id="verificationCode"></div>
+      <div class="form-group">
+        <input type="text" class="form-input" id="verificationInput" placeholder="Ingresa el código" maxlength="6">
+      </div>
+      <button class="auth-button" id="verifyButton">Verificar</button>
+    </div>
+
+    <!-- Auth Message -->
+    <div id="authMessage"></div>
+  </div>
 </div>
+
 
 <!-- Main Content -->
 <div class="main-content" id="mainContent">
@@ -303,10 +307,12 @@
             </div>
         </section>
     </div>
+    
  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
+
 
 
 
