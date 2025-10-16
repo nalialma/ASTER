@@ -1,123 +1,19 @@
 backend:
   name: git-gateway
-  branch: main # O master, dependiendo de tu rama principal
+  branch: main
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
-
-# Configuración de idioma
-locale: 'es'
+media_folder: "assets/img"
+public_folder: "/assets/img"
 
 collections:
-  - name: "configuracion"
-    label: "Configuración del Sitio"
+  - name: "pagina"
+    label: "Página Principal"
     files:
-      - name: "general"
-        label: "Configuración General"
-        file: "data/site-config.json"
+      - file: "data/content.json"
+        label: "Contenido Web"
+        name: "contenido"
         fields:
-          - {label: "Nombre del Sitio", name: "site_name", widget: "string", default: "Agencia Aster"}
-          - {label: "Descripción", name: "description", widget: "text"}
-          - {label: "Logo URL", name: "logo", widget: "image"}
-          
-      - name: "hero"
-        label: "Hero Section"
-        file: "data/hero.json"
-        fields:
-          - label: "Título Principal"
-            name: "title"
-            widget: "object"
-            fields:
-              - {label: "Español", name: "es", widget: "string"}
-              - {label: "Inglés", name: "en", widget: "string"}
-          - label: "Subtítulo"
-            name: "subtitle"
-            widget: "object"
-            fields:
-              - {label: "Español", name: "es", widget: "text"}
-              - {label: "Inglés", name: "en", widget: "text"}
-          - label: "Mensajes Rotativos (Español)"
-            name: "rotating_messages_es"
-            widget: "list"
-            field: {label: "Mensaje", name: "message", widget: "string"}
-          - label: "Mensajes Rotativos (Inglés)"
-            name: "rotating_messages_en"
-            widget: "list"
-            field: {label: "Mensaje", name: "message", widget: "string"}
-          - {label: "Texto del Botón (ES)", name: "cta_text_es", widget: "string"}
-          - {label: "Texto del Botón (EN)", name: "cta_text_en", widget: "string"}
-
-      - name: "contacto"
-        label: "Información de Contacto"
-        file: "data/contact.json"
-        fields:
-          - {label: "WhatsApp", name: "whatsapp", widget: "string"}
-          - {label: "Email", name: "email", widget: "string"}
-          - {label: "Instagram URL", name: "instagram", widget: "string"}
-          - {label: "Facebook URL", name: "facebook", widget: "string"}
-
-  - name: "servicios"
-    label: "Servicios"
-    folder: "data/services"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Orden", name: "order", widget: "number", default: 1}
-      - {label: "Icono (Font Awesome)", name: "icon", widget: "string", hint: "Ej: fas fa-video"}
-      - label: "Título"
-        name: "title"
-        widget: "object"
-        fields:
-          - {label: "Español", name: "es", widget: "string"}
-          - {label: "Inglés", name: "en", widget: "string"}
-      - label: "Descripción"
-        name: "description"
-        widget: "object"
-        fields:
-          - {label: "Español", name: "es", widget: "text"}
-          - {label: "Inglés", name: "en", widget: "text"}
-
-  - name: "paquetes"
-    label: "Paquetes"
-    folder: "data/packs"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Orden", name: "order", widget: "number", default: 1}
-      - {label: "Destacado", name: "featured", widget: "boolean", default: false}
-      - label: "Nombre"
-        name: "name"
-        widget: "object"
-        fields:
-          - {label: "Español", name: "es", widget: "string"}
-          - {label: "Inglés", name: "en", widget: "string"}
-      - label: "Descripción"
-        name: "description"
-        widget: "object"
-        fields:
-          - {label: "Español", name: "es", widget: "string"}
-          - {label: "Inglés", name: "en", widget: "string"}
-      - {label: "Precio", name: "price", widget: "string"}
-      - label: "Características"
-        name: "features"
-        widget: "list"
-        fields:
-          - {label: "Español", name: "es", widget: "string"}
-          - {label: "Inglés", name: "en", widget: "string"}
-
-  - name: "clientes"
-    label: "Clientes"
-    folder: "data/clients"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Nombre", name: "name", widget: "string"}
-      - label: "Categoría"
-        name: "category"
-        widget: "object"
-        fields:
-          - {label: "Español", name: "es", widget: "string"}
-          - {label: "Inglés", name: "en", widget: "string"}
-      - {label: "Logo", name: "logo", widget: "image"}
-      - {label: "URL del Sitio/Instagram", name: "url", widget: "string"}
-      - {label: "Orden", name: "order", widget: "number", default: 1}
+          - { label: "Título principal", name: "mainTitle", widget: "string" }
+          - { label: "Descripción", name: "mainDescription", widget: "text" }
+          - { label: "Imagen principal", name: "mainImage", widget: "image" }
+          - { label: "Servicios", name: "services", widget: "list", fields: [{label: "Servicio", name: "service", widget: "string"}] }
