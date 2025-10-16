@@ -1,32 +1,29 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Administración - Agencia Aster</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Panel Admin ASTER</title>
+  <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-  <!-- Netlify CMS -->
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-  
-  <script>
-    // Configuración adicional si es necesaria
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
+  <h1>Administrar contenido ASTER</h1>
+  <form id="contentForm">
+    <label>Título principal:
+      <input type="text" id="mainTitle" required>
+    </label>
+    <label>Descripción:
+      <textarea id="mainDescription" required></textarea>
+    </label>
+    <label>URL de imagen principal:
+      <input type="text" id="mainImage">
+    </label>
+    <label>Servicios (separados por coma):
+      <input type="text" id="services">
+    </label>
+    <button type="submit">Guardar cambios</button>
+  </form>
+  <p id="status"></p>
+
+  <script src="admin.js"></script>
 </body>
 </html>
