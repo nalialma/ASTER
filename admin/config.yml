@@ -9,11 +9,12 @@ collections:
   - name: "pagina"
     label: "Página Principal"
     files:
-      - file: "data/content.json"
-        label: "Contenido Web"
-        name: "contenido"
+      - file: "index.html"
+        label: "Contenido Principal"
+        name: "contenido_principal"
         fields:
-          - { label: "Título principal", name: "mainTitle", widget: "string" }
+          - { label: "Título" , name: "titulo" , widgeth: "string" }
+          - { label: "Título principal", name: "mainTitle", widget: "text" }
           - { label: "Descripción", name: "mainDescription", widget: "text" }
           - { label: "Imagen principal", name: "mainImage", widget: "image" }
-          - { label: "Servicios", name: "services", widget: "list", fields: [{label: "Servicio", name: "service", widget: "string"}] }
+          - { label: "Color de fondo" ,  name: "color_fondo" , widget: " color"}          - { label: "Servicios", name: "services", widget: "list", fields: [{label: "Servicio", name: "service", widget: "string"}] }
